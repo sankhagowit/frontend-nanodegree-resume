@@ -172,9 +172,9 @@ education.display = function() {
     $("#education").append(HTMLonlineStart);
     var formattedSchool = formatInput(HTMLonlineSchool,education.onlineCourses[school].school);
     var formatedTitle = formatInput(HTMLonlineTitle,education.onlineCourses[school].title);
-    addInput("#education",formatedTitle+formattedSchool);
-    addInput("#education",formatInput(HTMLonlineDates,education.onlineCourses[school].dates));
-    addInput("#education",formatInput(HTMLonlineURL,education.onlineCourses[school].url));
+    addInput(".online-education-entry",formatedTitle+formattedSchool);
+    addInput(".online-education-entry",formatInput(HTMLonlineDates,education.onlineCourses[school].dates));
+    addInput(".online-education-entry",formatInput(HTMLonlineURL,education.onlineCourses[school].url));
   }
 };
 
