@@ -25,10 +25,10 @@ OBJECTS FOLLOWING DATA SCHEMA
 
 var bio = {
   name: "Bobby Sankhagowit",
-  role: "Web Developer",
+  role: "Technical Problem Solver",
   contacts: {
     email: "bobby@sankhagowit.com",
-    mobile: "512-547-7424",
+    mobile: "512-555-5555",
     github: "sankhagowit",
     twitter: "@bobsank",
     location: "Houston, TX"
@@ -37,11 +37,11 @@ var bio = {
   welcomeMessage: "Hello! Welcome to my resume! <- summary here?",
   skills: [
     "Awesomeness",
-    " Statistics, Statistical Learning",
-    " HTML & CSS",
-    " R & MATLAB",
-    " Financial Forecasting",
-    " Business Planning"
+    "Statistics, Statistical Learning",
+    "HTML & CSS",
+    "R & MATLAB",
+    "Financial Forecasting",
+    "Business Planning"
   ]
 };
 
@@ -112,20 +112,14 @@ var projects = {
     {
       title: "project1",
       dates: "February 2017",
-      description: "proejct 1 was really cool",
-      images: [
-        "photo1URL",
-        "photo2URL"
-      ]
+      description: "  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at nesciunt, magni ipsum? Pariatur soluta neque a aut facere, laudantium doloribus fugiat temporibus explicabo molestias",
+      images: ["images/htmlcode-382_small_1x.png"]
     },
     {
       title: "project2",
       dates: "February 2017",
-      description: "Lets be honest project 2 was more cool",
-      images: [
-        "photo1URL",
-        "photo2URL"
-      ]
+      description: "nostrum odit itaque quaerat quibusdam necessitatibus sapiente animi! Rem cum tempora reiciendis, eius asperiores magnam.",
+      images: ["images/python-382_small_1x.png"]
     }
   ]
 };
@@ -151,23 +145,36 @@ projects.display = function() {
   }
 };
 
-function displayWork() {
-  for (var job in work.jobs){
-    $("#workExperience").append(HTMLworkStart);
-    var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
-    var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
-    $(".work-entry:last").append(formattedEmployer+formattedTitle);
-    var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
-    var formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
-    $(".work-entry:last").append(formattedDates+formattedLocation);
-    $(".work-entry:last").append(HTMLworkDescription.replace("%data%",work.jobs[job].description));
+// function displayWork() {
+//   for (var job in work.jobs){
+//     var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
+//     var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
+//     $(".work-entry:last").append(formattedEmployer+formattedTitle);
+//     var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
+//     var formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
+//     $(".work-entry:last").append(formattedDates+formattedLocation);
+//     $(".work-entry:last").append(HTMLworkDescription.replace("%data%",work.jobs[job].description));
+//   }
+// }
+
+work.display = function() {
+  for (var job = 0; job < work.jobs.length; job++) {
+    $("#workExperience").append(HTMLworkStart); //function requires the desired text to input
+    var formattedEmployer = formatInput(HTMLworkEmployer,work.jobs[job].employer);
+    var formattedTitle = formatInput(HTMLworkTitle,work.jobs[job].title);
+    addInput(".work-entry:last",formattedEmployer+formattedTitle);
+    var formattedDates = formatInput(HTMLworkDates,work.jobs[job].dates);
+    var formattedLocation = formatInput(HTMLworkLocation,work.jobs[job].location);
+    addInput(".work-entry:last",formattedDates+formattedLocation);
+    addInput(".work-entry:last",formatInput(HTMLprojectDescription,work.jobs[job].description));
   }
-}
+};
 
 /*
 INVOKING DISPLAY FUNCTIONS
 */
-displayWork();
+// displayWork();
+work.display();
 projects.display();
 
 
