@@ -81,7 +81,7 @@ var education = {
             name: "Stanford University",
             dates: "2013 - 2015",
             degree: "MS",
-            major: ["Management Science and Engineering"],
+            majors: ["Management Science and Engineering"],
             location: "Palo Alto, CA",
             url: "https://msande.stanford.edu/"
         },
@@ -90,7 +90,7 @@ var education = {
             dates: "2007 - 2011",
             degree: "BS",
             major: ["Chemical Engineering"],
-            location: "Austin",
+            location: "Austin, TX",
             url: "http://che.utexas.edu/"
         }
     ],
@@ -122,20 +122,13 @@ var projects = {
 ENCAPSULATION OF DISPLAY FUNCTIONS
 */
 
-// if (bio.skills.length > 0){
-//   $("#header").append(HTMLskillsStart);
-//   $("#skills").append(HTMLskills.replace("%data%",bio.skills));
-//   //now we need to get the contact info in here somehow... reread that section
-//
-// }
-
 bio.display = function() {
     $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
     $("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
-    for (contact in bio.contacts) {
+    for (var contact in bio.contacts) {
         var formattedContact = HTMLcontactGeneric.replace("%contact%", contact);
         formattedContact = formattedContact.replace("%data%", bio.contacts[contact]);
-        $("#topContacts").append(formattedContact);
+        $("#topContacts, #footerContacts").append(formattedContact);
     }
     addInput("#header", formatInput(HTMLbioPic, bio.biopic));
     addInput("#header", formatInput(HTMLwelcomeMsg, bio.welcomeMessage));
@@ -145,7 +138,7 @@ bio.display = function() {
             addInput("#skills", formatInput(HTMLskills, bio.skills[i]));
         }
     }
-}
+};
 
 projects.display = function() {
     for (var proj = 0; proj < projects.projects.length; proj++) {
@@ -153,7 +146,11 @@ projects.display = function() {
         addInput(".project-entry:last", formatInput(HTMLprojectTitle, projects.projects[proj].title));
         addInput(".project-entry:last", formatInput(HTMLprojectDates, projects.projects[proj].dates));
         addInput(".project-entry:last", formatInput(HTMLprojectDescription, projects.projects[proj].description));
-        addInput(".project-entry:last", formatInput(HTMLprojectImage, projects.projects[proj].images));
+        if (projects.projects[proj].images.length > 0) {
+          for(var img = 0; img < projects.projects[proj].images.length; img++){
+            addInput(".project-entry:last", formatInput(HTMLprojectImage, projects.projects[proj].images[img]));
+          }
+        }
     }
 };
 
@@ -173,11 +170,12 @@ work.display = function() {
 education.display = function() {
     for (var school = 0; school < education.schools.length; school++) {
         $("#education").append(HTMLschoolStart);
-        addInput(".education-entry:last", formatInput(HTMLschoolName, education.schools[school].name));
+        var formattedName = formatInput(HTMLschoolName, education.schools[school].name);
         var formattedDegree = formatInput(HTMLschoolDegree, education.schools[school].degree);
-        var formattedMajor = formatInput(HTMLschoolMajor, education.schools[school].major);
+        addInput(".education-entry:last", formattedName + formattedDegree);
         addInput(".education-entry:last", formatInput(HTMLschoolDates, education.schools[school].dates));
-        addInput(".education-entry:last", formattedMajor + formattedDegree);
+        addInput(".education-entry:last", formatInput(HTMLschoolLocation, education.schools[school].location));
+        addInput(".education-entry:last", formatInput(HTMLschoolMajor, education.schools[school].majors));
     }
     for (school = 0; school < education.onlineCourses.length; school++) {
         if (school === 0) {
