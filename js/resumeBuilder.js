@@ -102,7 +102,7 @@ var education = {
       title: "Front End Web Development Nanodegree",
       school: "Udacity",
       dates: "2017",
-      url: "url here"
+      url: "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
     }
   ]
 };
@@ -145,18 +145,6 @@ projects.display = function() {
   }
 };
 
-// function displayWork() {
-//   for (var job in work.jobs){
-//     var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
-//     var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
-//     $(".work-entry:last").append(formattedEmployer+formattedTitle);
-//     var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
-//     var formattedLocation = HTMLworkLocation.replace("%data%",work.jobs[job].location);
-//     $(".work-entry:last").append(formattedDates+formattedLocation);
-//     $(".work-entry:last").append(HTMLworkDescription.replace("%data%",work.jobs[job].description));
-//   }
-// }
-
 work.display = function() {
   for (var job = 0; job < work.jobs.length; job++) {
     $("#workExperience").append(HTMLworkStart); //function requires the desired text to input
@@ -170,12 +158,33 @@ work.display = function() {
   }
 };
 
+education.display = function() {
+  for (var school =0; school < education.schools.length; school++) {
+    $("#education").append(HTMLschoolStart);
+    addInput(".education-entry:last",formatInput(HTMLschoolName,education.schools[school].name));
+    var formattedDegree = formatInput(HTMLschoolDegree,education.schools[school].degree);
+    var formattedMajor = formatInput(HTMLschoolMajor,education.schools[school].major);
+    addInput(".education-entry:last",formatInput(HTMLschoolDates,education.schools[school].dates));
+    addInput(".education-entry:last",formattedMajor+formattedDegree);
+  }
+  for (var school = 0; school < education.onlineCourses.length; school++) {
+    if(school ===0){$("#education").append(HTMLonlineClasses);} //this is the header for online section
+    $("#education").append(HTMLonlineStart);
+    var formattedSchool = formatInput(HTMLonlineSchool,education.onlineCourses[school].school);
+    var formatedTitle = formatInput(HTMLonlineTitle,education.onlineCourses[school].title);
+    addInput("#education",formatedTitle+formattedSchool);
+    addInput("#education",formatInput(HTMLonlineDates,education.onlineCourses[school].dates));
+    addInput("#education",formatInput(HTMLonlineURL,education.onlineCourses[school].url));
+  }
+};
+
 /*
 INVOKING DISPLAY FUNCTIONS
 */
 // displayWork();
 work.display();
 projects.display();
+education.display();
 
 
 /*
